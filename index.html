@@ -157,7 +157,7 @@ html,body{height:100%;overflow:hidden}body{height:100dvh;display:flex;align-item
   </div>
 </div>
 
-<div class="modal" id="modal"><div class="card"><h2 id="result"></h2><div class="small" id="resultText"></div><div class="small" id="elapsedTime"></div><div class="code" id="code"></div><button class="new" id="againBtn">PLAY AGAIN</button><button class="new" id="shareBtn">SHARE RESULT</button><div class="small" id="shareStatus" role="status"></div><pre id="shareFallback" hidden></pre></div></div>
+<div class="modal" id="modal"><div class="card"><h2 id="result"></h2><div class="small" id="resultText"></div><div class="small" id="elapsedTime"></div><div class="code" id="code"></div><button class="new" id="backToPuzzleBtn">BACK TO PUZZLE</button><button class="new" id="againBtn">PLAY AGAIN</button><button class="new" id="shareBtn">SHARE RESULT</button><div class="small" id="shareStatus" role="status"></div><pre id="shareFallback" hidden></pre></div></div>
 <script>
 const colors=[['blue','#2787ff'],['green','#28b66f'],['purple','#8d55d9'],['red','#ef4545'],['yellow','#f2c94c']];
 const shapes=['circle','diamond','square','star','triangle'];
@@ -271,10 +271,12 @@ const DAILY_LABEL='Advanced (May Repeat)';
 let dailyResultText='',practiceMode=false,dailySnapshot=null,friendChallengeActive=false;
 const dailyHeading=document.querySelector('.title').innerHTML;
 const practiceHeading=dailyHeading.replace('ADVANCED','ADVANCED PRACTICE');
-const againButton=document.getElementById('againBtn'),shareButton=document.getElementById('shareBtn');
+const againButton=document.getElementById('againBtn'),shareButton=document.getElementById('shareBtn'),backToPuzzleButton=document.getElementById('backToPuzzleBtn');
+backToPuzzleButton.onclick=()=>document.getElementById('modal').classList.remove('show');
 const returnDailyButton=document.createElement('button');returnDailyButton.type='button';returnDailyButton.className='new';returnDailyButton.textContent='RETURN TO CHALLENGE RESULT';returnDailyButton.hidden=true;shareButton.insertAdjacentElement('afterend',returnDailyButton);
 const dailyDateFormatter=new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit'});
 let activeDailyDate='';
+function displayDailyDate(dateKey){const [year,month,day]=dateKey.split('-');return `${month}/${day}/${year.slice(-2)}`;}
 function dailyDateKey(now=new Date()){
  const parts=Object.fromEntries(dailyDateFormatter.formatToParts(now).filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));
  return `${parts.year}-${parts.month}-${parts.day}`;
@@ -340,7 +342,7 @@ function endGame(win){
  if(practiceMode){
    shareButton.hidden=true;returnDailyButton.hidden=false;againButton.textContent='PLAY ANOTHER RANDOM';
  }else{
-   dailyResultText=`ColorForm — ${DAILY_LABEL}\n${activeDailyDate} (Central time)\n${win?`Solved in ${guesses.length}/6 guesses`:'Not solved in 6 guesses'}\nTime: ${elapsed}`;
+   dailyResultText=`ColorForm — ${DAILY_LABEL}\n${displayDailyDate(activeDailyDate)}\n${win?`Solved in ${guesses.length}/6 guesses`:'Not solved in 6 guesses'}\nTime: ${elapsed}`;
    dailySnapshot={win,elapsed,resultText:dailyResultText,secret:[...secret],guesses:guesses.map(row=>({g:[...row.g],fb:row.fb}))};shareButton.hidden=false;returnDailyButton.hidden=true;againButton.textContent='PLAY RANDOM PUZZLE';
  }
  document.getElementById('shareStatus').textContent='';
@@ -352,7 +354,7 @@ async function shareResult(){
  const feedback=document.getElementById('shareStatus');
  const fallback=document.getElementById('shareFallback');
  feedback.textContent='';fallback.hidden=true;
- const resultToShare=dailyResultText+'\nPuzzle: https://cd2st.github.io/ColorForm-Friend-Challenge/';
+ const resultToShare=dailyResultText+'\nPlay ColorForm: https://cd2st.github.io/ColorForm/';
  try{
    if(!navigator.clipboard)throw new Error('Clipboard unavailable');
    await navigator.clipboard.writeText(resultToShare);
