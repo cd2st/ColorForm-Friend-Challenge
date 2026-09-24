@@ -119,6 +119,8 @@ html,body{height:100%;overflow:hidden}body{height:100dvh;display:flex;align-item
 @media(max-width:520px){.creator-card{padding:14px}.creator-slots{grid-template-columns:repeat(4,minmax(48px,1fr))}.creator-palette{grid-template-columns:repeat(5,1fr);gap:4px}.creator-piece{border-radius:7px}}
 /* Keep palette shapes geometrically square inside wide mobile tiles. */
 .tile .shape:not(.color-placeholder){height:auto!important;aspect-ratio:1/1;flex:none}
+.creator-piece .shape,.creator-slot .shape{height:auto!important;aspect-ratio:1/1;flex:none}
+.creator-piece .shape.diamond,.creator-slot .shape.diamond{width:40%}
 </style>
 </head>
 <body>
