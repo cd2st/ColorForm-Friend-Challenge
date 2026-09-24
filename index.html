@@ -117,6 +117,8 @@ html,body{height:100%;overflow:hidden}body{height:100dvh;display:flex;align-item
 .creator-link{width:100%;min-height:70px;margin-top:12px;padding:10px;border:1px solid #3a4d6a;border-radius:9px;background:#09111d;color:#eef4ff;font:12px/1.4 system-ui;resize:none}
 .creator-status{min-height:20px;margin-top:8px;color:#9feeff;font-size:12px;font-weight:800}
 @media(max-width:520px){.creator-card{padding:14px}.creator-slots{grid-template-columns:repeat(4,minmax(48px,1fr))}.creator-palette{grid-template-columns:repeat(5,1fr);gap:4px}.creator-piece{border-radius:7px}}
+/* Keep palette shapes geometrically square inside wide mobile tiles. */
+.tile .shape:not(.color-placeholder){height:auto!important;aspect-ratio:1/1;flex:none}
 </style>
 </head>
 <body>
@@ -348,7 +350,7 @@ async function shareResult(){
  const feedback=document.getElementById('shareStatus');
  const fallback=document.getElementById('shareFallback');
  feedback.textContent='';fallback.hidden=true;
- const resultToShare=dailyResultText+'\nPuzzle: https://bdunbar2016-star.github.io/ColorForm-Advanced-Daily-may-repeat/';
+ const resultToShare=dailyResultText+'\nPuzzle: https://cd2st.github.io/ColorForm-Friend-Challenge/';
  try{
    if(!navigator.clipboard)throw new Error('Clipboard unavailable');
    await navigator.clipboard.writeText(resultToShare);
