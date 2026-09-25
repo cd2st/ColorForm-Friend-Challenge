@@ -5,6 +5,23 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark only">
 <title>ColorForm - Friend Challenge</title>
+<meta name="description" content="Create a ColorForm code for a friend to crack.">
+<link rel="canonical" href="https://cd2st.github.io/ColorForm-Friend-Challenge/">
+<meta property="og:title" content="ColorForm: Friend Challenge">
+<meta property="og:description" content="A friend created a ColorForm code for you to crack.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cd2st.github.io/ColorForm-Friend-Challenge/?share=2">
+<meta property="og:image" content="https://cd2st.github.io/ColorForm-Friend-Challenge/colorform-share-card.png">
+<meta property="og:image:secure_url" content="https://cd2st.github.io/ColorForm-Friend-Challenge/colorform-share-card.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ColorForm: Crack the Code">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ColorForm: Friend Challenge">
+<meta name="twitter:description" content="A friend created a ColorForm code for you to crack.">
+<meta name="twitter:image" content="https://cd2st.github.io/ColorForm-Friend-Challenge/colorform-share-card.png">
+<meta name="twitter:image:alt" content="ColorForm: Crack the Code">
 <style>
 :root{
   --bg:#080d18; --panel:#111827; --panel2:#182235; --panel3:#0d1422;
@@ -448,7 +465,7 @@ function placeCreatorPiece(piece){
 async function copyFriendLink(){
  if(creatorCode.some(piece=>!piece))return;
  const payload=encodeFriendCode(creatorCode);
- const url=location.href.split('#')[0]+'#cf='+payload;
+ const url='https://cd2st.github.io/ColorForm-Friend-Challenge/?share=2#cf='+payload;
  creatorLink.value=url;creatorLink.hidden=false;
  try{
    if(!navigator.clipboard)throw new Error('Clipboard unavailable');
